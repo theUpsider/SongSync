@@ -133,5 +133,11 @@ namespace SongSync
                 MessageBox.Show(ex.Message.ToString());
             }
         }
+
+        private void ButtonPlay_Click(object sender, RoutedEventArgs e)
+        {
+            TextToSend = "play";
+            backgroundWorker2.RunWorkerAsync();
+        }
     }
 }
