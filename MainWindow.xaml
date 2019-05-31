@@ -7,6 +7,16 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Button x:Name="buttonPlay" Content="Play" HorizontalAlignment="Left" Margin="118,353,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPlay_Click"/>
+        <Button x:Name="buttonPause" Content="Pause" HorizontalAlignment="Left" Margin="209,353,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="301,353,0,0" VerticalAlignment="Top" Width="75"/>
+        <TextBox x:Name="textBoxIPServer" HorizontalAlignment="Left" Height="23" Margin="103,65,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBoxPortServer" HorizontalAlignment="Left" Height="23" Margin="312,65,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBoxIPClient" HorizontalAlignment="Left" Height="23" Margin="103,129,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="textBoxPortClient" HorizontalAlignment="Left" Height="23" Margin="312,129,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="buttonServerStart" Content="START" HorizontalAlignment="Left" Margin="449,68,0,0" VerticalAlignment="Top" Width="75" Click="ButtonServerStart_Click"/>
+        <Button x:Name="buttonClientConnect" Content="CONNECT" HorizontalAlignment="Left" Margin="449,132,0,0" VerticalAlignment="Top" Width="75" Click="ButtonClientConnect_Click"/>
+        <TextBox x:Name="chatBox" HorizontalAlignment="Left" Height="104" Margin="103,195,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="433"/>
+
     </Grid>
 </Window>
