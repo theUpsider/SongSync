@@ -38,7 +38,9 @@ namespace SongSync
             InitializeComponent();
             //songmanager
             SongManager.songfolder = textBoxSongFolder.Text;
+            SongManager.songfolder.Replace(@"\\", @"\");
             SongManager.currentsong = textBoxFirstSong.Text;
+            SongManager.currentsong.Replace(@"\\", @"\");
             backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
             backgroundWorker2.DoWork += new DoWorkEventHandler(backgroundWorker2_DoWork);
 
@@ -69,7 +71,7 @@ namespace SongSync
                         chatBox.AppendText("Other:" + recieve + "\n");
                         if (recieve.Equals("play"))
                         {
-                            SongManager.Play();
+                            SongManager.setfolderandsong();
                         }
                         if (recieve.Equals("stop"))
                         {
@@ -107,6 +109,26 @@ namespace SongSync
                 this.chatBox.Dispatcher.Invoke(new Action(delegate ()
                 {
                     chatBox.AppendText("Me:" + TextToSend + "\n");
+                    if (TextToSend.Equals("play"))
+                    {
+                        SongManager.setfolderandsong();
+                    }
+                    if (TextToSend.Equals("stop"))
+                    {
+                        SongManager.Stop();
+                    }
+                    if (TextToSend.Equals("pause"))
+                    {
+                        SongManager.Pause();
+                    }
+                    if (TextToSend.Equals("next"))
+                    {
+                        SongManager.Next();
+                    }
+                    if (TextToSend.Equals("back"))
+                    {
+                        SongManager.Back();
+                    }
                 }));
             }
             else
@@ -163,13 +185,15 @@ namespace SongSync
         private void TextBoxSongFolder_TextChanged(object sender, TextChangedEventArgs e)
         {
             SongManager.songfolder = textBoxSongFolder.Text;
-            SongManager.setfolderandsong();
+            SongManager.songfolder.Replace(@"\\", @"\");
+            //SongManager.setfolderandsong();
         }
 
         private void TextBoxFirstSong_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SongManager.currentsong = textBoxFirstSong.Text;
-            SongManager.setfolderandsong();
+            SongManager.currentsong = textBoxFirstSong.Text.Replace(@"\\",@"\");
+            SongManager.currentsong.Replace(@"\\", @"\");
+            //SongManager.setfolderandsong();
         }
 
         private void ButtonPause_Click(object sender, RoutedEventArgs e)
