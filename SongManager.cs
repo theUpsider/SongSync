@@ -11,27 +11,24 @@ namespace SongSync
         private static System.Media.SoundPlayer player = new System.Media.SoundPlayer();
         private static WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
 
-        public static string songfolder = "C:/temp";
-        public static string currentsong = "song.mp3";
+        public static string songfolder = "C:\\temp";
+        public static string currentsong = "chorsample.mp3";
         public static bool isplaying = false;
 
-        public static void Play()
+        public static void setfolderandsong()
         {
             if (currentsong.EndsWith("mp3"))
             {
                 if (!isplaying) { 
-                    wplayer.URL = songfolder + "/"+ currentsong;
+                    wplayer.URL = songfolder + "\\"+ currentsong;
 
-                    wplayer.controls.play();
-                    isplaying = true;
                 }
             }else if(currentsong.EndsWith("wav"))
             {
                 if (!isplaying)
                 {
-                    player.SoundLocation = songfolder + "/" + currentsong;
-                    player.PlaySync();
-                    isplaying = true;
+                    player.SoundLocation = songfolder + "\\" + currentsong;
+                  
                 }
             }
         }
@@ -58,7 +55,7 @@ namespace SongSync
         }
 
 
-        public static void Resume()
+        public static void Play()
         {
             if (!isplaying)
             {

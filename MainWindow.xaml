@@ -11,8 +11,8 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <Button x:Name="buttonPlay" Content="Play" HorizontalAlignment="Left" Margin="103,353,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPlay_Click"/>
-        <Button x:Name="buttonPause" Content="Pause" HorizontalAlignment="Left" Margin="183,353,0,0" VerticalAlignment="Top" Width="75"/>
-        <Button x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="461,358,0,0" VerticalAlignment="Top" Width="75"/>
+        <Button x:Name="buttonPause" Content="Pause" HorizontalAlignment="Left" Margin="183,353,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPause_Click"/>
+        <Button x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="461,358,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStop_Click"/>
         <TextBox x:Name="textBoxIPServer" HorizontalAlignment="Left" Height="23" Margin="103,65,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="textBoxPortServer" HorizontalAlignment="Left" Height="23" Margin="312,65,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="textBoxIPClient" HorizontalAlignment="Left" Height="23" Margin="103,129,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
@@ -24,11 +24,11 @@
         <Label x:Name="label_Copy" Content="Server Port" HorizontalAlignment="Left" Margin="312,39,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="label_Copy1" Content="Connection IP" HorizontalAlignment="Left" Margin="103,103,0,0" VerticalAlignment="Top" Width="120"/>
         <Label x:Name="label_Copy2" Content="Connection Port" HorizontalAlignment="Left" Margin="312,103,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxSongFolder" HorizontalAlignment="Left" Height="23" Margin="103,314,0,0" TextWrapping="Wrap" Text="C:/Songfolder" VerticalAlignment="Top" Width="295" TextChanged="TextBoxSongFolder_TextChanged"/>
+        <TextBox x:Name="textBoxSongFolder" HorizontalAlignment="Left" Height="23" Margin="103,314,0,0" TextWrapping="Wrap" Text="C:\Songfolder" VerticalAlignment="Top" Width="295" TextChanged="TextBoxSongFolder_TextChanged"/>
         <TextBox x:Name="textBoxFirstSong" HorizontalAlignment="Left" Height="23" Margin="416,314,0,0" TextWrapping="Wrap" Text="Firstsong.mp3" VerticalAlignment="Top" Width="120" TextChanged="TextBoxFirstSong_TextChanged"/>
-        <Label x:Name="label1" Content="/" HorizontalAlignment="Left" Margin="398,314,0,0" VerticalAlignment="Top" Width="18" RenderTransformOrigin="0.402,0.122" Height="23"/>
-        <Button x:Name="buttonBackwards" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="103,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPlay_Click"/>
-        <Button x:Name="buttonForwards" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="183,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPlay_Click"/>
+        <Label x:Name="label1" Content="\" HorizontalAlignment="Left" Margin="398,314,0,0" VerticalAlignment="Top" Width="18" RenderTransformOrigin="0.402,0.122" Height="23"/>
+        <Button x:Name="buttonBackwards" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="103,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonBackwards_Click"/>
+        <Button x:Name="buttonForwards" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="183,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonForwards_Click"/>
 
     </Grid>
 </Window>

@@ -34,11 +34,11 @@ namespace SongSync
 
         public MainWindow()
         {
+
+            InitializeComponent();
             //songmanager
             SongManager.songfolder = textBoxSongFolder.Text;
             SongManager.currentsong = textBoxFirstSong.Text;
-
-            InitializeComponent();
             backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
             backgroundWorker2.DoWork += new DoWorkEventHandler(backgroundWorker2_DoWork);
 
@@ -70,6 +70,22 @@ namespace SongSync
                         if (recieve.Equals("play"))
                         {
                             SongManager.Play();
+                        }
+                        if (recieve.Equals("stop"))
+                        {
+                            SongManager.Stop();
+                        }
+                        if (recieve.Equals("pause"))
+                        {
+                            SongManager.Pause();
+                        }
+                        if (recieve.Equals("next"))
+                        {
+                            SongManager.Next();
+                        }
+                        if (recieve.Equals("back"))
+                        {
+                            SongManager.Back();
                         }
                     }));
                 
@@ -142,20 +158,48 @@ namespace SongSync
             }
         }
 
+
+
+        private void TextBoxSongFolder_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SongManager.songfolder = textBoxSongFolder.Text;
+            SongManager.setfolderandsong();
+        }
+
+        private void TextBoxFirstSong_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SongManager.currentsong = textBoxFirstSong.Text;
+            SongManager.setfolderandsong();
+        }
+
+        private void ButtonPause_Click(object sender, RoutedEventArgs e)
+        {
+            TextToSend = "pause";
+            backgroundWorker2.RunWorkerAsync();
+        }
+
+        private void ButtonStop_Click(object sender, RoutedEventArgs e)
+        {
+            TextToSend = "stop";
+            backgroundWorker2.RunWorkerAsync();
+        }
+
         private void ButtonPlay_Click(object sender, RoutedEventArgs e)
         {
             TextToSend = "play";
             backgroundWorker2.RunWorkerAsync();
         }
 
-        private void TextBoxSongFolder_TextChanged(object sender, TextChangedEventArgs e)
+        private void ButtonForwards_Click(object sender, RoutedEventArgs e)
         {
-            SongManager.songfolder = textBoxSongFolder.Text;
+            TextToSend = "next";
+            backgroundWorker2.RunWorkerAsync();
         }
 
-        private void TextBoxFirstSong_TextChanged(object sender, TextChangedEventArgs e)
+        private void ButtonBackwards_Click(object sender, RoutedEventArgs e)
         {
-            SongManager.currentsong = textBoxFirstSong.Text;
+            TextToSend = "back";
+            backgroundWorker2.RunWorkerAsync();
         }
     }
 }
