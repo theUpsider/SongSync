@@ -34,6 +34,9 @@ namespace SongSync
 
         public MainWindow()
         {
+            //songmanager
+            SongManager.songfolder = textBoxSongFolder.Text;
+            SongManager.currentsong = textBoxFirstSong.Text;
 
             InitializeComponent();
             backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
@@ -64,9 +67,14 @@ namespace SongSync
                     this.chatBox.Dispatcher.Invoke(new Action(delegate ()
                     {
                         chatBox.AppendText("Other:" + recieve + "\n");
+                        if (recieve.Equals("play"))
+                        {
+                            SongManager.Play();
+                        }
                     }));
                 
                     recieve = "";
+
                 }
                 catch (Exception ex)
                 {
@@ -138,6 +146,16 @@ namespace SongSync
         {
             TextToSend = "play";
             backgroundWorker2.RunWorkerAsync();
+        }
+
+        private void TextBoxSongFolder_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SongManager.songfolder = textBoxSongFolder.Text;
+        }
+
+        private void TextBoxFirstSong_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            SongManager.currentsong = textBoxFirstSong.Text;
         }
     }
 }
