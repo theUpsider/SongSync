@@ -5,30 +5,63 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:SongSync"
         mc:Ignorable="d"
-        Title="SongSync 1.0" Height="450" Width="662.805">
-    <Grid>
+        Title="SongSync 1.0" Height="529.964" Width="812.544" WindowStartupLocation="CenterScreen">
+    <Grid Margin="0,0,2,1">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="buttonPlay" Content="Play" HorizontalAlignment="Left" Margin="103,353,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPlay_Click"/>
-        <Button x:Name="buttonPause" Content="Pause" HorizontalAlignment="Left" Margin="183,353,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPause_Click"/>
-        <Button x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="461,358,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStop_Click"/>
-        <TextBox x:Name="textBoxIPServer" HorizontalAlignment="Left" Height="23" Margin="103,65,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxPortServer" HorizontalAlignment="Left" Height="23" Margin="312,65,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxIPClient" HorizontalAlignment="Left" Height="23" Margin="103,129,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxPortClient" HorizontalAlignment="Left" Height="23" Margin="312,129,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="buttonServerStart" Content="START" HorizontalAlignment="Left" Margin="449,68,0,0" VerticalAlignment="Top" Width="75" Click="ButtonServerStart_Click"/>
-        <Button x:Name="buttonClientConnect" Content="CONNECT" HorizontalAlignment="Left" Margin="449,132,0,0" VerticalAlignment="Top" Width="75" Click="ButtonClientConnect_Click"/>
-        <TextBox x:Name="chatBox" HorizontalAlignment="Left" Height="128" Margin="103,171,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="433"/>
-        <Label x:Name="label" Content="Server IP" HorizontalAlignment="Left" Margin="103,39,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label_Copy" Content="Server Port" HorizontalAlignment="Left" Margin="312,39,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label_Copy1" Content="Connection IP" HorizontalAlignment="Left" Margin="103,103,0,0" VerticalAlignment="Top" Width="120"/>
-        <Label x:Name="label_Copy2" Content="Connection Port" HorizontalAlignment="Left" Margin="312,103,0,0" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBoxSongFolder" HorizontalAlignment="Left" Height="23" Margin="103,314,0,0" TextWrapping="Wrap" Text="C:\Songfolder" VerticalAlignment="Top" Width="295" TextChanged="TextBoxSongFolder_TextChanged"/>
-        <TextBox x:Name="textBoxFirstSong" HorizontalAlignment="Left" Height="23" Margin="416,314,0,0" TextWrapping="Wrap" Text="Firstsong.mp3" VerticalAlignment="Top" Width="120" TextChanged="TextBoxFirstSong_TextChanged"/>
-        <Label x:Name="label1" Content="\" HorizontalAlignment="Left" Margin="398,314,0,0" VerticalAlignment="Top" Width="18" RenderTransformOrigin="0.402,0.122" Height="23"/>
-        <Button x:Name="buttonBackwards" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="103,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonBackwards_Click"/>
-        <Button x:Name="buttonForwards" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="183,378,0,0" VerticalAlignment="Top" Width="75" Click="ButtonForwards_Click"/>
+
+        <TabControl x:Name="tabControl" HorizontalAlignment="Left" Width="793">
+            <TabItem Header="TabItem">
+                <Grid Margin="10,10,10,10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="62*"/>
+                        <RowDefinition Height="173*"/>
+                    </Grid.RowDefinitions>
+                    <TextBox x:Name="textBoxPortClient" HorizontalAlignment="Left" Height="23" Margin="209,90,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="textBoxIPServer" HorizontalAlignment="Left" Height="23" Margin="0,26,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="textBoxPortServer" HorizontalAlignment="Left" Height="23" Margin="209,26,0,0" TextWrapping="Wrap" Text="100" VerticalAlignment="Top" Width="120"/>
+                    <TextBox x:Name="textBoxIPClient" HorizontalAlignment="Left" Height="23" Margin="0,90,0,0" TextWrapping="Wrap" Text="IP" VerticalAlignment="Top" Width="120"/>
+                    <Button x:Name="buttonServerStart" Content="START" HorizontalAlignment="Left" Margin="346,29,0,0" VerticalAlignment="Top" Width="75" Click="ButtonServerStart_Click" Height="20"/>
+                    <Button x:Name="buttonClientConnect" Content="CONNECT" HorizontalAlignment="Left" Margin="346,93,0,0" VerticalAlignment="Top" Width="75" Click="ButtonClientConnect_Click" Height="20"/>
+                    <Label x:Name="label" Content="Server IP" HorizontalAlignment="Left" VerticalAlignment="Top" Width="120" Height="26"/>
+                    <Label x:Name="label_Copy" Content="Server Port" HorizontalAlignment="Left" Margin="209,0,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                    <Label x:Name="label_Copy1" Content="Connection IP" HorizontalAlignment="Left" Margin="0,64,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                    <Label x:Name="label_Copy2" Content="Connection Port" HorizontalAlignment="Left" Margin="209,64,0,0" VerticalAlignment="Top" Width="120" Height="26"/>
+                    <Grid Margin="0,215.39,0,-250" Grid.Row="1">
+                        <TextBox x:Name="textBoxSongFolder" HorizontalAlignment="Left" Height="23" TextWrapping="Wrap" Text="C:\temp" VerticalAlignment="Top" Width="181" TextChanged="TextBoxSongFolder_TextChanged"/>
+                        <TextBox x:Name="textBoxFirstSong" HorizontalAlignment="Left" Height="23" Margin="209,1,0,0" TextWrapping="Wrap" Text="chordsample.mp3" VerticalAlignment="Top" Width="120" TextChanged="TextBoxFirstSong_TextChanged"/>
+                        <Label x:Name="label1" Content="\" HorizontalAlignment="Left" Margin="186,1,0,0" VerticalAlignment="Top" Width="18" RenderTransformOrigin="0.402,0.122" Height="23"/>
+                        <Button x:Name="buttonOpenFolder" Content="OpenFolder" HorizontalAlignment="Left" Margin="346,3,0,0" VerticalAlignment="Top" Width="75" Click="ButtonOpenFolder_Click" RenderTransformOrigin="0.875,0.515"/>
+                        <Grid Margin="0,30,112,-49">
+                            <Button x:Name="buttonPlay" Content="Play" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Click="ButtonPlay_Click" Height="20"/>
+                            <Button x:Name="buttonPause" Content="Pause" HorizontalAlignment="Left" Margin="80,0,0,0" VerticalAlignment="Top" Width="75" Click="ButtonPause_Click" Height="20"/>
+                            <Button x:Name="buttonStop" Content="Stop" HorizontalAlignment="Left" Margin="160,0,0,0" VerticalAlignment="Top" Width="75" Click="ButtonStop_Click" Height="20"/>
+                            <Button x:Name="buttonBackwards" Content="&lt;&lt;" HorizontalAlignment="Left" Margin="0,25,0,0" VerticalAlignment="Top" Width="75" Click="ButtonBackwards_Click" Height="20" IsEnabled="False"/>
+                            <Button x:Name="buttonForwards" Content="&gt;&gt;" HorizontalAlignment="Left" Margin="80,25,0,0" VerticalAlignment="Top" Width="75" Click="ButtonForwards_Click" Height="20" IsEnabled="False"/>
+                            <Button x:Name="button" Content="Sync again" HorizontalAlignment="Left" Margin="240,0,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
+                        </Grid>
+
+
+                    </Grid>
+                    <ListBox x:Name="listBoxFiles" HorizontalAlignment="Left" Height="206" Margin="0,4,0,0" VerticalAlignment="Top" Width="421" Grid.Row="1" SelectionChanged="ListBoxFiles_SelectionChanged"/>
+                    <Border BorderBrush="Black" BorderThickness="1" Height="auto" VerticalAlignment="Top" HorizontalAlignment="Right" Width="auto">
+                        <Grid Margin="0,1,0,-1">
+                            <Label x:Name="label3" Content="Playtime:" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,36,0,0"/>
+                            <Label x:Name="labelplaytime" Content="00:00" Margin="104,36,29,0" VerticalAlignment="Top" RenderTransformOrigin="0.493,-0.367"/>
+                            <Label x:Name="label4" Content="Songname:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.156,0.198"/>
+                            <Label x:Name="labelSongname" Content="" HorizontalAlignment="Left" Margin="104,10,0,0" VerticalAlignment="Top"/>
+                        </Grid>
+                    </Border>
+                </Grid>
+
+            </TabItem>
+            <TabItem Header="TabItem">
+                <TextBox x:Name="chatBox" HorizontalAlignment="Left" Height="128" Margin="23,144,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="433"/>
+            </TabItem>
+
+        </TabControl>
+
 
     </Grid>
 </Window>

@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using System.Windows.Forms;
+using ListBox = System.Windows.Controls.ListBox;
 
 namespace SongSync
 {
@@ -31,6 +33,7 @@ namespace SongSync
 
         private static BackgroundWorker backgroundWorker1 = new BackgroundWorker();
         private static BackgroundWorker backgroundWorker2 = new BackgroundWorker();
+        private static BackgroundWorker backgroundWorker3timer = new BackgroundWorker();
 
         public MainWindow()
         {
@@ -43,6 +46,7 @@ namespace SongSync
             SongManager.currentsong.Replace(@"\\", @"\");
             backgroundWorker1.DoWork += new DoWorkEventHandler(backgroundWorker1_DoWork);
             backgroundWorker2.DoWork += new DoWorkEventHandler(backgroundWorker2_DoWork);
+            backgroundWorker3timer.DoWork += new DoWorkEventHandler(backgroundWorker3_DoWork);
 
             IPAddress[] localIP = Dns.GetHostAddresses(Dns.GetHostName());
 
@@ -57,9 +61,22 @@ namespace SongSync
             //StartClient();
             //LoopConnect();
             //SendLoop();
+
+            InitSongTimer();
+
+            SongManager.addPlaystateEventhandler(new WMPLib._WMPOCXEvents_PlayStateChangeEventHandler(player_PlayStateChange));
         }
 
-        private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
+        private void player_PlayStateChange(int i)
+        {
+            if (!SongManager.isStopPressed && i == 1)
+                SongManager.Next();
+            if (i == 1)
+                SongManager.isplaying = false;
+        }
+            //----------------------------------------------------------------------------------------
+            //RECIEVE
+            private void backgroundWorker1_DoWork(object sender, DoWorkEventArgs e)
         {
             while (client.Connected)
             {
@@ -69,76 +86,129 @@ namespace SongSync
                     this.chatBox.Dispatcher.Invoke(new Action(delegate ()
                     {
                         chatBox.AppendText("Other:" + recieve + "\n");
-                        if (recieve.Equals("play"))
+                        switch (recieve)
                         {
-                            SongManager.setfolderandsong();
-                        }
-                        if (recieve.Equals("stop"))
-                        {
-                            SongManager.Stop();
-                        }
-                        if (recieve.Equals("pause"))
-                        {
-                            SongManager.Pause();
-                        }
-                        if (recieve.Equals("next"))
-                        {
-                            SongManager.Next();
-                        }
-                        if (recieve.Equals("back"))
-                        {
-                            SongManager.Back();
+                            case "play":
+                                SongManager.setandPlay(true);
+                                break;
+                            case "stop":
+                                SongManager.Stop();
+                                break;
+                            case "pause":
+                                SongManager.Pause();
+                                break;
+                            case "next":
+                                SongManager.Next();
+                                break;
+                            case "back":
+                                SongManager.Back();
+                                break;
+
+                            default:
+                                if (recieve.Contains("sync"))
+                                {
+                                    string newrec = recieve.Remove(0, 4);
+                                    SongManager.Sync(newrec);
+                                }
+                                break;
                         }
                     }));
-                
+
                     recieve = "";
 
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ex.Message.ToString());
+                    System.Windows.Forms.MessageBox.Show(ex.Message.ToString());
                 }
             }
         }
-
+        //---------------------------------------------------------------------------------
+        //SELF
         private void backgroundWorker2_DoWork(object sender, DoWorkEventArgs e)
         {
+            if (client == null)
+                return;
             if (client.Connected)
             {
                 STW.WriteLine(TextToSend);
                 this.chatBox.Dispatcher.Invoke(new Action(delegate ()
                 {
                     chatBox.AppendText("Me:" + TextToSend + "\n");
-                    if (TextToSend.Equals("play"))
+                    switch (TextToSend)
                     {
-                        SongManager.setfolderandsong();
+                        case "play":
+                            SongManager.setandPlay(true);
+                            break;
+                        case "stop":
+                            SongManager.Stop();
+                            break;
+                        case "pause":
+                            SongManager.Pause();
+                            break;
+                        case "next":
+                            SongManager.Next();
+                            break;
+                        case "back":
+                            SongManager.Back();
+                            break;
+
+                        default:
+                            SongManager.Sync(SongManager.getCurrentPos());
+                            break;
                     }
-                    if (TextToSend.Equals("stop"))
-                    {
-                        SongManager.Stop();
-                    }
-                    if (TextToSend.Equals("pause"))
-                    {
-                        SongManager.Pause();
-                    }
-                    if (TextToSend.Equals("next"))
-                    {
-                        SongManager.Next();
-                    }
-                    if (TextToSend.Equals("back"))
-                    {
-                        SongManager.Back();
-                    }
+                    //if (TextToSend.Equals("play"))
+                    //    SongManager.setandPlay();
+                    //if (TextToSend.Equals("stop"))
+                    //    SongManager.Stop();
+                    //if (TextToSend.Equals("pause"))
+                    //    SongManager.Pause();
+                    //if (TextToSend.Equals("next"))
+                    //    SongManager.Next();                    
+                    //if (TextToSend.Equals("back"))
+                    //    SongManager.Back();
+
                 }));
             }
             else
             {
-                MessageBox.Show("Sending failed");
+                System.Windows.Forms.MessageBox.Show("Sending failed");
             }
             backgroundWorker2.CancelAsync();
         }
 
-   
+        private void backgroundWorker3_DoWork(object sender, DoWorkEventArgs e)
+        {
+
+
+        }
+
+        private void InitSongTimer()
+        {
+            Timer timer1 = new Timer();
+            timer1.Tick += new EventHandler(timer1_Tick);
+            timer1.Interval = 1000; // in miliseconds
+            timer1.Start();
+        }
+
+        //Update Information about song
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (SongManager.isplaying)
+            {
+                //SONG TIME
+                this.labelplaytime.Dispatcher.Invoke(new Action(delegate ()
+                {
+                    labelplaytime.Content = SongManager.getCurrentPos();
+                }));
+                //SONG NAME
+                this.labelSongname.Dispatcher.Invoke(new Action(delegate ()
+                {
+                    labelSongname.Content = SongManager.getSongName();
+                }));
+                
+            }
+        }
 
 
         private void ButtonServerStart_Click(object sender, RoutedEventArgs e)
@@ -176,7 +246,7 @@ namespace SongSync
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message.ToString());
+                System.Windows.Forms.MessageBox.Show(ex.Message.ToString());
             }
         }
 
@@ -191,7 +261,7 @@ namespace SongSync
 
         private void TextBoxFirstSong_TextChanged(object sender, TextChangedEventArgs e)
         {
-            SongManager.currentsong = textBoxFirstSong.Text.Replace(@"\\",@"\");
+            SongManager.currentsong = textBoxFirstSong.Text.Replace(@"\\", @"\");
             SongManager.currentsong.Replace(@"\\", @"\");
             //SongManager.setfolderandsong();
         }
@@ -210,6 +280,11 @@ namespace SongSync
 
         private void ButtonPlay_Click(object sender, RoutedEventArgs e)
         {
+            if(listBoxFiles.SelectedItem == null)
+            {
+                System.Windows.Forms.MessageBox.Show("No Song selected");
+                return;
+            }
             TextToSend = "play";
             backgroundWorker2.RunWorkerAsync();
         }
@@ -224,6 +299,41 @@ namespace SongSync
         {
             TextToSend = "back";
             backgroundWorker2.RunWorkerAsync();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            TextToSend = "sync" + SongManager.getCurrentPos();
+            backgroundWorker2.RunWorkerAsync();
+        }
+
+        private void ButtonOpenFolder_Click(object sender, RoutedEventArgs e)
+        {
+            using (var dialog = new System.Windows.Forms.FolderBrowserDialog())
+            {
+                System.Windows.Forms.DialogResult result = dialog.ShowDialog();
+                if(result == System.Windows.Forms.DialogResult.OK)
+                {
+                    SongManager.songfolder = dialog.SelectedPath;
+                    string[] filePaths = Directory.GetFiles(SongManager.songfolder);
+                    if(filePaths.Length >1)
+                    SongManager.currentsong = filePaths[0] ?? String.Empty;
+                    foreach (string filename in filePaths)
+                    {
+                        if(filename.EndsWith(".mp3"))
+                            listBoxFiles.Items.Add(filename);
+                    }
+                }
+            }
+        }
+
+        //set new file to play
+        private void ListBoxFiles_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (((ListBox)sender).SelectedItem == null)
+                return;
+            string selectedItem = ((ListBox)sender).Items[((ListBox)sender).SelectedIndex].ToString();
+            SongManager.currentfile = selectedItem;
         }
     }
 }
